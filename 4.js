@@ -1,4 +1,4 @@
-module.exports =  `7-50,8-33
+const input = `7-50,8-33
 76-83,77-87
 68-73,55-68
 13-37,12-25
@@ -998,3 +998,13 @@ module.exports =  `7-50,8-33
 63-63,17-63
 41-98,41-97
 1-99,2-98`;
+
+const total = input.split('\n').reduce((acc, pair) => {
+	const [firstStart, firstEnd, secondStart, secondEnd] = pair.split(',').flatMap((set) => set.split('-')).map((input) => Number.parseFloat(input));
+	// const isContained = (firstStart <= secondStart && firstEnd >= secondEnd) || (secondStart <= firstStart && secondEnd >= firstEnd);
+	const isContained = !(firstEnd < secondStart || secondEnd < firstStart);
+
+	return acc + (isContained ? 1 : 0);
+}, 0);
+
+console.log(total)
